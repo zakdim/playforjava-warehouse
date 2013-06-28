@@ -1,0 +1,54 @@
+@(title: String = "Warehouse sample application")(content: Html)
+
+@import play.i18n._
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+    	<meta charset="utf-8">
+        <title>@title</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta content="" name="description">
+		<meta content="" name="author">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap.css")">
+		<style>
+			body {
+				padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+			}
+		</style>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.css")">		        
+		<link href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-144-precomposed.png") sizes="144x144" rel="apple-touch-icon-precomposed">
+		<link href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png") sizes="114x114" rel="apple-touch-icon-precomposed">
+		<link href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")  sizes="72x72"   rel="apple-touch-icon-precomposed">
+		<link href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")  rel="apple-touch-icon-precomposed">
+		<link href="@routes.Assets.at("bootstrap/ico/favicon.png") rel="shortcut icon">		        
+		        
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/colors.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+    </head>
+    <body>
+		@navigation()
+				 
+    	@if(flash.containsKey("success")){
+    		<div class="alert alert-success">
+    			@flash.get("success")
+    		</div>
+    	}
+    	@if(flash.containsKey("error")){
+    		<div class="alert alert-error">
+    			@flash.get("error")
+    		</div>
+    	}
+    	
+    	<div class="header">Header LESS Test: @Messages.get(Lang.forCode("ru"), "welcome")</div>
+    	
+    	<div class="container">
+        @content
+        </div>
+        <div class="footer">Footer LESS Test</div>
+		<script src="@routes.Assets.at("javascripts/jquery-1.9.1.js")" type="text/javascript">        
+    </body>
+</html>

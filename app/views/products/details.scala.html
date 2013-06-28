@@ -1,0 +1,52 @@
+@(productForm: Form[Product]) 
+@import helper._ 
+@import helper.twitterBootstrap._ 
+
+@main("Product form") {
+	<h2>Product form</h2>
+	@helper.form(action = routes.Products.save(), 'enctype -> "multipart/form-data") {
+		<fieldset>
+			<input type="hidden" value="@productForm("id").value" name="id">
+			<legend>Product (@if(productForm("id").value!=null) { ID: @productForm("id").value } else { New } )</legend>
+            <div class="control-group @if(productForm("ean").hasErrors){ error }">
+                <div class="controls">
+                	<label for="ean">EAN</label>
+                    <input type="text" value="@productForm("ean").value" name="ean" placeholder="Product EAN">
+                    <p class="help-inline"><small>Required</small></p>
+                </div>
+            </div>			
+            <div class="control-group @if(productForm("name").hasErrors){ error }">
+                <div class="controls">
+                	<label for="name">Name</label>
+                    <input type="text" value="@productForm("name").value" name="name" placeholder="Product name"  >
+                    <p class="help-inline"><small>Required</small></p>
+                </div>
+            </div>			
+            <div class="control-group @if(productForm("description").hasErrors){ error }">
+ 				<label for="description">Description</label>
+                <div class="controls">
+                    <textarea type="text" name="description" placeHolder="Enter the product description">@productForm("description").value</textarea>
+                </div>
+            </div>
+		</fieldset>
+		<div class="control-group">
+			<div class="controls">
+				<input name="tags[0].id" value="1" type="checkbox" @for(i <- 0 to 2) { @if(productForm("tags[" + i + "]").value!=null && productForm("tags[" + i + "]").value == "1") { checked }}> Steel
+				<input name="tags[1].id" value="2" type="checkbox" @for(i <- 0 to 2) { @if(productForm("tags[" + i + "]").value!=null && productForm("tags[" + i + "]").value == "2") { checked }}> Plastic
+				<input name="tags[2].id" value="3" type="checkbox" @for(i <- 0 to 2) { @if(productForm("tags[" + i + "]").value!=null && productForm("tags[" + i + "]").value == "3") { checked }}> Metal
+			</div>
+		</div>		
+		<div class="control-group">
+			<div class="controls">
+				<input type="file" name="picture">
+				@if(productForm("picture").value!=null) {
+					<img style="position:relative;left:50px;height:80px" 
+						src="/picture/@productForm("id").value">
+				}
+			</div>
+		</div>
+		<div class="form-actions">
+			<input type="submit" value="@if(productForm("name").value!=null) { Save } else {Create}" class="btn btn-primary" >
+		</div>
+	} 
+}

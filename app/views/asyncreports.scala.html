@@ -1,0 +1,19 @@
+@(reports: List[models.Report])
+
+@main() {
+	<h2>Reports</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+	    	@for(report <- reports) { 
+	    		<tr>
+	    			<td>@report</td>
+	   	    	</tr>
+	    	}			
+		</tbody>
+	</table>
+}

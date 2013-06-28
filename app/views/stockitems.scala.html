@@ -1,0 +1,23 @@
+@(stockItems: List[StockItem])
+
+@main("Stock items") {
+	<h2>Stock items</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+	    	@for(stockItem <- stockItems) { 
+	    		<tr>
+	    			<td>@stockItem.id</td>
+	   	    		<td><a href="@routes.Products.details(stockItem.product)">@stockItem.product.name</a></td>
+	   	    		<td>@stockItem.quantity</td>
+	   	    	</tr>
+	    	}			
+		</tbody>
+	</table>
+}

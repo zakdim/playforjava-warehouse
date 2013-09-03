@@ -18,7 +18,18 @@ object ApplicationBuild extends Build {
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    // Add your own project settings here      
+    // Add your own project settings here     
+
+    // Fix for JUnit tests known issue reported for play-2.1.3, see 
+    // https://groups.google.com/forum/#!topic/play-framework/Jn9k6osk6V0
+    // This might change in the next release.
+    testOptions in Test ~= { args =>
+      for {
+        arg <- args
+        val ta: Tests.Argument = arg.asInstanceOf[Tests.Argument]
+        val newArg = if(ta.framework == Some(TestFrameworks.JUnit)) ta.copy(args = List.empty[String]) else ta
+      } yield newArg
+    }    
   )
 
 }
